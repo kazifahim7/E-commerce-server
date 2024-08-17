@@ -32,6 +32,8 @@ async function run() {
             const categorys = req.query.category;
             const search=req.query.search;
             const sort=req.query.sort;
+            const page = parseInt(req.query.page)
+            const size = parseInt(req.query.size)
             console.log(categorys)
             let query={}
             let option={}
@@ -71,7 +73,7 @@ async function run() {
            
             
             
-            const result=await allDataCollection.find(query,option).toArray()
+            const result = await allDataCollection.find(query, option).skip(page*size ).limit(size).toArray()
             res.send(result)
         })
 
